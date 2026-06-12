@@ -200,6 +200,607 @@
       </div>
     </section>
 
+    <!-- ============ SHOWCASE — Inside the app ============ -->
+    <section class="section showcase" id="showcase">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">Inside the app</p>
+          <h2>See exactly what you get.</h2>
+          <p>Not screenshots — every preview below is rebuilt in code from the real app, so what you see here is what opens on your Mac.</p>
+        </div>
+
+        <!-- ======== A. Slash commands ======== -->
+        <div class="sc-block reveal">
+          <div class="sc-block-head">
+            <h3>Search speaks shorthand</h3>
+            <p>Type <code>/</code> in the search bar and Mitsuki turns into a command line for Japanese. Watch it run every command — or click one to try it.</p>
+          </div>
+
+          <div class="sc-split sc-split-cmd">
+            <div class="sc-cmd-legend" id="cmd-legend" role="list">
+              <button class="sc-cmd-row" type="button" data-i="0" role="listitem">
+                <kbd>/gr</kbd>
+                <span><strong>Grammar Lookup</strong><em>Search grammar points — /gr &lt;term&gt;</em></span>
+              </button>
+              <button class="sc-cmd-row" type="button" data-i="1" role="listitem">
+                <kbd>/tr</kbd>
+                <span><strong>Translate Clipboard</strong><em>Translate clipboard text</em></span>
+              </button>
+              <button class="sc-cmd-row" type="button" data-i="2" role="listitem">
+                <kbd>/nat</kbd>
+                <span><strong>Check Naturalness</strong><em>Check if clipboard text sounds natural</em></span>
+              </button>
+              <button class="sc-cmd-row" type="button" data-i="3" role="listitem">
+                <kbd>/cor</kbd>
+                <span><strong>Correct Sentence</strong><em>Correct clipboard Japanese</em></span>
+              </button>
+              <button class="sc-cmd-row" type="button" data-i="4" role="listitem">
+                <kbd>/exp</kbd>
+                <span><strong>Explain Japanese</strong><em>Explain Japanese text with AI — /exp &lt;text&gt;</em></span>
+              </button>
+              <button class="sc-cmd-row" type="button" data-i="5" role="listitem">
+                <kbd>/cc</kbd>
+                <span><strong>Search Clipboard</strong><em>Look up clipboard text in the dictionary</em></span>
+              </button>
+              <button class="sc-cmd-row" type="button" data-i="6" role="listitem">
+                <kbd>/diff</kbd>
+                <span><strong>Compare Words</strong><em>Compare two words or phrases — /diff A vs B</em></span>
+              </button>
+            </div>
+
+            <div class="sc-window sc-cmd" id="cmd-demo" aria-label="Animated preview of Mitsuki search commands">
+              <div class="sc-titlebar">
+                <span class="sc-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <strong>Mitsuki</strong>
+                <span class="sc-tb-icons" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+                </span>
+              </div>
+              <div class="sc-cmd-body">
+                <div class="sc-searchbar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                  <span class="sc-cmd-typed" id="cmd-typed"></span><span class="sc-caret" aria-hidden="true"></span>
+                  <span class="sc-search-btn">Search</span>
+                </div>
+
+                <ul class="sc-palette" id="cmd-palette" aria-hidden="true">
+                  <li data-trigger="/gr"><kbd>/gr</kbd><span>Grammar Lookup</span></li>
+                  <li data-trigger="/tr"><kbd>/tr</kbd><span>Translate Clipboard</span></li>
+                  <li data-trigger="/nat"><kbd>/nat</kbd><span>Check Naturalness</span></li>
+                  <li data-trigger="/cor"><kbd>/cor</kbd><span>Correct Sentence</span></li>
+                  <li data-trigger="/exp"><kbd>/exp</kbd><span>Explain Japanese</span></li>
+                  <li data-trigger="/cc"><kbd>/cc</kbd><span>Search Clipboard</span></li>
+                  <li data-trigger="/diff"><kbd>/diff</kbd><span>Compare Words</span></li>
+                </ul>
+
+                <div class="sc-cmd-results">
+                  <div class="sc-result" data-panel="gr">
+                    <div class="sc-result-head">
+                      <span class="sc-jp-lg">〜ながら</span>
+                      <span class="chip">Grammar</span><span class="chip">JLPT N4</span>
+                    </div>
+                    <p class="sc-result-sub">While doing A, also doing B — two actions, one subject.</p>
+                    <div class="sc-example"><span class="jp">音楽を聞きながら勉強する。</span><span class="en">I study while listening to music.</span></div>
+                  </div>
+
+                  <div class="sc-result" data-panel="tr">
+                    <div class="sc-clip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg><span>駅まで歩きました。</span><em>From your clipboard</em></div>
+                    <div class="sc-example"><span class="jp">I walked to the station.</span><span class="en">Natural English, tone preserved</span></div>
+                  </div>
+
+                  <div class="sc-result" data-panel="nat">
+                    <div class="sc-clip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg><span>この問題は難しいだと思う</span><em>From your clipboard</em></div>
+                    <div class="sc-verdict warn"><strong>Sounds off — 58/100</strong><span>「だ」 can't follow an い-adjective.</span></div>
+                    <div class="sc-fix">この問題は難しい<del>だ</del>と思う <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+                  </div>
+
+                  <div class="sc-result" data-panel="cor">
+                    <div class="sc-clip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg><span>昨日、映画を<del>見った</del>。</span><em>From your clipboard</em></div>
+                    <div class="sc-verdict good"><strong>昨日、映画を<ins>見た</ins>。</strong><span>見る is ichidan — its past tense is 見た, not 見った.</span></div>
+                  </div>
+
+                  <div class="sc-result" data-panel="exp">
+                    <div class="sc-result-head">
+                      <span class="sc-jp-lg">木漏れ日</span>
+                      <span class="chip">AI</span>
+                    </div>
+                    <p class="sc-stream">
+                      <span class="w" style="--i:0">Sunlight</span> <span class="w" style="--i:1">leaking</span> <span class="w" style="--i:2">through</span> <span class="w" style="--i:3">leaves</span> <span class="w" style="--i:4">—</span> <span class="w" style="--i:5">a</span> <span class="w" style="--i:6">famously</span> <span class="w" style="--i:7">untranslatable</span> <span class="w" style="--i:8">word.</span> <span class="w" style="--i:9">木</span> <span class="w" style="--i:10">tree</span> <span class="w" style="--i:11">·</span> <span class="w" style="--i:12">漏れ</span> <span class="w" style="--i:13">leak</span> <span class="w" style="--i:14">·</span> <span class="w" style="--i:15">日</span> <span class="w" style="--i:16">sun.</span>
+                    </p>
+                  </div>
+
+                  <div class="sc-result" data-panel="cc">
+                    <div class="sc-clip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg><span>桜</span><em>From your clipboard</em></div>
+                    <div class="sc-result-head">
+                      <span class="sc-jp-lg">桜</span><span class="sc-read">さくら</span>
+                      <span class="chip">Noun</span><span class="chip success">Common</span>
+                    </div>
+                    <p class="sc-result-sub">cherry tree; cherry blossom</p>
+                    <button class="sc-add-mini" type="button" tabindex="-1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                      Save to Flashcards
+                    </button>
+                  </div>
+
+                  <div class="sc-result" data-panel="diff">
+                    <div class="sc-vs">
+                      <div class="sc-vs-col"><span class="sc-jp-lg">帰る</span><p>to go <strong>home</strong> — back to where you belong.</p></div>
+                      <span class="sc-vs-badge">vs</span>
+                      <div class="sc-vs-col"><span class="sc-jp-lg">戻る</span><p>to go <strong>back</strong> — to any previous point.</p></div>
+                    </div>
+                    <button class="sc-add-mini" type="button" tabindex="-1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                      Save as Compare Card
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== B. Review Mode explorer ======== -->
+        <div class="sc-block reveal">
+          <div class="sc-block-head">
+            <h3>Review Mode is a cockpit</h3>
+            <p>Spaced repetition is the engine — these are the controls. Every tool below lives one tap away on every single card.</p>
+          </div>
+
+          <div class="sc-split sc-split-rev">
+            <div class="sc-tabs" id="rev-tabs" role="tablist" aria-label="Review tools">
+              <button class="sc-tab active" type="button" role="tab" aria-selected="true" data-scene="hide">
+                <strong>Hide Reading</strong>
+                <em>Blur readings until you truly know them. Hold the card — or press Space — to peek.</em>
+              </button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-scene="quick">
+                <strong>Quick Look</strong>
+                <em>A word in the example you don't know? Look it up right there, mid-review.</em>
+              </button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-scene="kanji">
+                <strong>Kanji button</strong>
+                <em>Tap 字 to break down every kanji on the card — readings, strokes, JLPT level.</em>
+              </button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-scene="trainer">
+                <strong>Word Trainer</strong>
+                <em>Recognizing a word isn't owning it. Get a scenario, write a sentence, get graded.</em>
+              </button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-scene="ask">
+                <strong>Ask AI</strong>
+                <em>Unsure about nuance? Ask right from the card and keep reviewing.</em>
+              </button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-scene="compare">
+                <strong>Compare Usage</strong>
+                <em>Untangle near-synonyms with AI — then save the difference as a Compare card.</em>
+              </button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-scene="fill">
+                <strong>AutoFill &amp; AI Fill</strong>
+                <em>Complete any custom card from the dictionary in one tap — or let AI write it.</em>
+              </button>
+            </div>
+
+            <div class="sc-window sc-review" id="rev-demo" data-active="hide" aria-label="Animated preview of Review Mode">
+              <div class="sc-titlebar">
+                <span class="sc-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="sc-back" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+                <strong>Review Mode</strong>
+                <span class="sc-tb-icons" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4zM22 9l-6 6m0-6 6 6"/></svg>
+                </span>
+              </div>
+
+              <div class="sc-review-meta">
+                <span>Card 1 of 75</span>
+                <span class="sc-count-pill">0/75</span>
+                <span class="sc-meta-hint" id="rev-hint">Reveal the answer</span>
+              </div>
+              <div class="sc-progress"><i></i></div>
+
+              <div class="sc-stage">
+                <!-- Scene 1: Hide Reading -->
+                <div class="sc-scene active" data-scene="hide" role="tabpanel">
+                  <div class="sc-cardface sc-front">
+                    <div class="sc-cardface-top"><span class="sc-flag">Front</span><span class="sc-mits-pill">Mitsuki</span></div>
+                    <div class="sc-front-big">絶えず</div>
+                    <div class="sc-front-reading"><span class="sc-peek">たえず</span></div>
+                    <div class="sc-cardface-bottom">
+                      <span>Hold — or press <kbd class="sc-space-key">Space</kbd> — to peek</span>
+                      <span>Reviewed 1×</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scene 2: Quick Look -->
+                <div class="sc-scene" data-scene="quick" role="tabpanel">
+                  <div class="sc-cardface sc-back-card sc-dim">
+                    <div class="sc-back-head">
+                      <div><span class="sc-back-word">絶えず</span><span class="sc-back-read">たえず</span></div>
+                      <span class="sc-circle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+                      <span class="sc-circle-btn accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg></span>
+                    </div>
+                    <div class="sc-answerbox">
+                      <em>Answer</em>
+                      <ol><li>constantly</li><li>always</li></ol>
+                      <div class="sc-example"><span class="jp">彼らは絶えず<mark class="sc-ql-mark">けんか</mark>ばかりしていた。</span><span class="en">They were constantly quarreling.</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scene 3: Kanji button -->
+                <div class="sc-scene" data-scene="kanji" role="tabpanel">
+                  <div class="sc-kanji-grid">
+                    <div class="sc-cardface sc-mini-front">
+                      <div class="sc-front-big">絶えず</div>
+                      <span class="sc-kanji-fab">字</span>
+                    </div>
+                    <div class="sc-kanji-panel">
+                      <div class="sc-kanji-head">
+                        <span class="sc-kanji-big">絶</span>
+                        <div>
+                          <strong>sever · cut off · discontinue</strong>
+                          <div class="sc-kanji-pills"><span class="chip">JLPT N3</span><span class="chip">12 strokes</span></div>
+                        </div>
+                      </div>
+                      <div class="sc-kanji-readings">
+                        <span><em>On</em> ゼツ</span>
+                        <span><em>Kun</em> た・える</span>
+                      </div>
+                      <button class="sc-add-mini" type="button" tabindex="-1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                        Add Kanji Flashcard
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scene 4: Word Trainer -->
+                <div class="sc-scene" data-scene="trainer" role="tabpanel">
+                  <div class="sc-sheet">
+                    <div class="sc-sheet-head">
+                      <span class="sc-sheet-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="2.5"/><path d="m10 22 2.5-5.5L9 13l1.5-5L15 9.5l3 2.5"/><path d="m6 16 2-6 3-2"/></svg></span>
+                      <div><strong>Word Trainer</strong><em>Practice using 絶えず in context.</em></div>
+                    </div>
+                    <div class="sc-tool-card sc-step-1">
+                      <em>Scenario</em>
+                      <p>Your neighbours argue every single night. Describe it.</p>
+                    </div>
+                    <div class="sc-tool-card sc-step-2">
+                      <em>Your sentence</em>
+                      <p><span class="sc-type" style="--n:14">隣人は絶えずけんかしている。</span></p>
+                    </div>
+                    <div class="sc-grade sc-step-3">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 5-6"/></svg>
+                      <div><strong>Great job!</strong><em>Natural and grammatically correct.</em></div>
+                      <span class="sc-score">92<sub>/100</sub></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scene 5: Ask AI -->
+                <div class="sc-scene" data-scene="ask" role="tabpanel">
+                  <div class="sc-sheet">
+                    <div class="sc-sheet-head">
+                      <span class="sc-sheet-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/></svg></span>
+                      <div><strong>Ask AI</strong><em>About 絶えず</em></div>
+                    </div>
+                    <div class="sc-bubble user">What's the difference with いつも?</div>
+                    <div class="sc-bubble ai">
+                      <span class="w" style="--i:0">絶えず</span> <span class="w" style="--i:1">is</span> <span class="w" style="--i:2">literary</span> <span class="w" style="--i:3">—</span> <span class="w" style="--i:4">"constantly,</span> <span class="w" style="--i:5">without</span> <span class="w" style="--i:6">pause",</span> <span class="w" style="--i:7">like</span> <span class="w" style="--i:8">a</span> <span class="w" style="--i:9">river.</span> <span class="w" style="--i:10">いつも</span> <span class="w" style="--i:11">is</span> <span class="w" style="--i:12">the</span> <span class="w" style="--i:13">everyday</span> <span class="w" style="--i:14">"always"</span> <span class="w" style="--i:15">—</span> <span class="w" style="--i:16">habits,</span> <span class="w" style="--i:17">not</span> <span class="w" style="--i:18">flow.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scene 6: Compare Usage -->
+                <div class="sc-scene" data-scene="compare" role="tabpanel">
+                  <div class="sc-sheet">
+                    <div class="sc-sheet-head">
+                      <span class="sc-sheet-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg></span>
+                      <div><strong>Compare Usage</strong><em>絶えず vs 常に</em></div>
+                    </div>
+                    <div class="sc-vs">
+                      <div class="sc-vs-col"><span class="sc-jp-lg">絶えず</span><p>Unbroken flow — written, poetic.</p></div>
+                      <span class="sc-vs-badge">vs</span>
+                      <div class="sc-vs-col"><span class="sc-jp-lg">常に</span><p>Formal "at all times" — speeches, rules.</p></div>
+                    </div>
+                    <button class="sc-add-mini sc-compare-add" type="button" tabindex="-1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                      Add Compare Card
+                    </button>
+                    <div class="sc-compare-toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Compare card added to your deck</div>
+                  </div>
+                </div>
+
+                <!-- Scene 7: AutoFill & AI Fill -->
+                <div class="sc-scene" data-scene="fill" role="tabpanel">
+                  <div class="sc-sheet">
+                    <div class="sc-sheet-head">
+                      <span class="sc-sheet-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 12.5H11L9.5 22 18 11.5h-6.5z"/></svg></span>
+                      <div><strong>Custom card — 木漏れ日</strong><em>Two ways to fill the rest.</em></div>
+                      <span class="sc-fill-btns"><span class="sc-fill-btn auto">AutoFill</span><span class="sc-fill-btn ai">AI Fill</span></span>
+                    </div>
+                    <div class="sc-field sc-fill-1"><em>Reading</em><span>こもれび</span></div>
+                    <div class="sc-field sc-fill-2"><em>Meaning</em><span>sunlight filtering through leaves</span></div>
+                    <div class="sc-field sc-fill-3"><em>Example</em><span>木漏れ日がベンチに落ちていた。</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sc-ratings" aria-hidden="true">
+                <span class="sc-rate again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>Again<em>1m</em></span>
+                <span class="sc-rate hard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3.5-1.5 5-1.5 8a3.5 3.5 0 0 0 7 .5C19.5 14 22 16 22 18a8 8 0 0 1-16 0c0-3 1.5-4.5 2.5-7.5C9.5 8 12 5.5 12 2z" transform="scale(.85) translate(2 2)"/></svg>Hard<em>1m</em></span>
+                <span class="sc-rate good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Good<em>9m</em></span>
+                <span class="sc-rate easy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6L12 16.8 6.6 19.6l1-6L3.3 9.4l6-.9z"/></svg>Easy<em>4d</em></span>
+              </div>
+
+              <div class="sc-keys" aria-hidden="true">
+                <span><kbd>Space</kbd> Reveal</span>
+                <span><kbd>1</kbd> Again</span>
+                <span><kbd>2</kbd> Hard</span>
+                <span><kbd>3</kbd> Good</span>
+                <span><kbd>4</kbd> Easy</span>
+              </div>
+
+              <div class="sc-quicklook" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <span class="sc-ql-placeholder">Look up a word…</span>
+                <span class="sc-ql-typed sc-type" style="--n:3">けんか</span>
+              </div>
+
+              <div class="sc-ql-pop" aria-hidden="true">
+                <div><span class="sc-jp-lg">喧嘩</span><span class="sc-read">けんか</span><span class="chip">Noun</span></div>
+                <p>quarrel; fight; squabble</p>
+                <button class="sc-add-mini" type="button" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== C. Deck Dashboard ======== -->
+        <div class="sc-block reveal">
+          <div class="sc-block-head">
+            <h3>A deck you can watch grow</h3>
+            <p>Your review health is a living sakura tree. Review and it blooms; slack off and it wilts. You will not let it wilt.</p>
+          </div>
+
+          <div class="sc-split sc-split-dash" id="dash-block">
+            <div class="sc-window sc-dash" id="dash-demo" aria-label="Animated preview of the deck dashboard">
+              <div class="sc-titlebar">
+                <span class="sc-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="sc-back" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+                <strong>Flashcards</strong>
+                <span class="sc-tb-icons" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h10m4 0h2M4 17h2m4 0h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+                </span>
+              </div>
+
+              <div class="sc-dash-hero">
+                <div class="sc-dash-toprow">
+                  <span class="sc-dash-left">
+                    <span class="sc-drop"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.7c2.8 3.6 6 7.2 6 11a6 6 0 0 1-12 0c0-3.8 3.2-7.4 6-11z"/></svg></span>
+                    <strong>75 left today</strong>
+                  </span>
+                  <span class="sc-streak-pill">Sakura streak <b>12</b></span>
+                </div>
+                <div class="sc-dash-pills">
+                  <span class="chip">✦ Lv. 22</span>
+                  <span class="chip">❄ 2</span>
+                </div>
+
+                <div class="sc-tree-wrap" id="tree" data-wave="0">
+                  <svg viewBox="0 0 240 210" aria-hidden="true">
+                    <ellipse cx="120" cy="197" rx="50" ry="7" class="sc-tree-ground"/>
+                    <path class="sc-tree-line trunk" pathLength="1" d="M120 196 C117 168 122 150 118 128 C114 108 106 96 102 82"/>
+                    <path class="sc-tree-line" pathLength="1" d="M118 132 C100 122 84 118 68 102"/>
+                    <path class="sc-tree-line thin" pathLength="1" d="M119 142 C140 130 158 124 174 108"/>
+                    <path class="sc-tree-line thin" pathLength="1" d="M104 86 C102 72 108 62 106 48"/>
+                    <g class="sc-bw" data-w="1">
+                      <circle cx="64" cy="100" r="9"/><circle cx="74" cy="96" r="7"/><circle cx="70" cy="106" r="6"/>
+                      <circle cx="170" cy="104" r="9"/><circle cx="180" cy="110" r="7"/><circle cx="178" cy="100" r="6"/>
+                      <circle cx="102" cy="46" r="9"/><circle cx="112" cy="50" r="7"/><circle cx="108" cy="40" r="6"/>
+                    </g>
+                    <g class="sc-bw" data-w="2">
+                      <circle cx="84" cy="84" r="8"/><circle cx="94" cy="80" r="7"/><circle cx="90" cy="90" r="6"/>
+                      <circle cx="144" cy="84" r="8"/><circle cx="154" cy="90" r="7"/><circle cx="152" cy="80" r="6"/>
+                      <circle cx="114" cy="60" r="8"/><circle cx="124" cy="64" r="7"/><circle cx="120" cy="54" r="6"/>
+                    </g>
+                    <g class="sc-bw" data-w="3">
+                      <circle cx="66" cy="76" r="8"/><circle cx="58" cy="84" r="7"/>
+                      <circle cx="184" cy="90" r="8"/><circle cx="192" cy="98" r="6"/>
+                      <circle cx="130" cy="38" r="8"/><circle cx="140" cy="44" r="6"/><circle cx="126" cy="30" r="6"/>
+                      <circle cx="94" cy="30" r="7"/><circle cx="104" cy="26" r="6"/>
+                    </g>
+                  </svg>
+                  <span class="sc-fpetal" aria-hidden="true"></span>
+                  <span class="sc-fpetal" aria-hidden="true"></span>
+                  <span class="sc-fpetal" aria-hidden="true"></span>
+                  <span class="sc-stage-label" id="tree-label">Sprout</span>
+                </div>
+
+                <div class="sc-gauges">
+                  <div class="sc-gauge">
+                    <svg viewBox="0 0 64 64"><circle class="rbg" cx="32" cy="32" r="26" pathLength="100"/><circle class="rfg" id="goal-ring" cx="32" cy="32" r="26" pathLength="100"/></svg>
+                    <div class="sc-gauge-txt"><b id="goal-n">0</b><span>of 100</span></div>
+                    <em>Today's goal</em>
+                  </div>
+                  <div class="sc-gauge">
+                    <svg viewBox="0 0 64 64"><circle class="rbg" cx="32" cy="32" r="26" pathLength="100"/><circle class="rfg" id="bloom-ring" cx="32" cy="32" r="26" pathLength="100"/></svg>
+                    <div class="sc-gauge-txt"><b id="bloom-word" class="sc-bloom-word">Sprout</b></div>
+                    <em>Bloom</em>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sc-deck-health">
+                <em>Deck health</em>
+                <div class="sc-stats">
+                  <div class="sc-stat due">
+                    <span class="sc-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+                    <b class="sc-count" data-count="449">0</b><span>Due</span>
+                  </div>
+                  <div class="sc-stat new">
+                    <span class="sc-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/></svg></span>
+                    <b class="sc-count" data-count="155">0</b><span>New</span>
+                  </div>
+                  <div class="sc-stat learn">
+                    <span class="sc-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 9-10-5L2 9l10 5 10-5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg></span>
+                    <b class="sc-count" data-count="86">0</b><span>Learning</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sc-dash-cta" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+                Review 75 cards
+              </div>
+
+              <div class="sc-tabbar" aria-hidden="true">
+                <span class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Today</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/></svg>Learn</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7h4a1 1 0 0 1 1 1v4m-1 5h-4m-5 1v-4a1 1 0 0 0-1-1H4"/><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>Practice</span>
+              </div>
+            </div>
+
+            <div class="sc-dash-side">
+              <div class="sc-side-item">
+                <h4>An animated sakura tree</h4>
+                <p>The tree is your deck's health bar — Sprout, Partial Bloom, Near Bloom, Full Bloom. Skip your reviews and it wilts. It's surprisingly hard to abandon a tree.</p>
+              </div>
+              <div class="sc-side-item">
+                <h4>Achievements</h4>
+                <p>Streaks, levels, freeze tokens, and unlockable milestones turn daily review into a habit you actually keep.</p>
+                <div class="sc-demo-slot">
+                  <div class="sc-toast">
+                    <span class="sc-toast-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8m-4-4v4M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3m10-5h3v2a3 3 0 0 1-3 3"/></svg></span>
+                    <div><strong>Achievement unlocked</strong><em>Sakura Streak — 7 days in a row</em></div>
+                  </div>
+                </div>
+              </div>
+              <div class="sc-side-item">
+                <h4>Review notifications</h4>
+                <p>A gentle nudge when cards are due — tuned to bring you back, not to nag you.</p>
+                <div class="sc-demo-slot">
+                  <div class="sc-notif">
+                    <img src="assets/icon.png" alt="" width="30" height="30">
+                    <div><strong>Mitsuki</strong><em>75 cards are ready — your tree misses you.</em></div>
+                    <span class="sc-notif-time">now</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== D. Practice & study tools ======== -->
+        <div class="sc-block reveal">
+          <div class="sc-block-head">
+            <h3>And between reviews…</h3>
+            <p>Six more ways Mitsuki keeps the language moving — each one a tap from the dashboard.</p>
+          </div>
+
+          <div class="sc-minis stagger">
+            <article class="sc-mini reveal">
+              <div class="sc-mini-head">
+                <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5h16v2M9 5v14m-2 0h4"/><path d="M14 12h7m-7 4h7" opacity=".5"/></svg></div>
+                <h4>Fill-in-the-blank</h4>
+              </div>
+              <div class="sc-mini-demo sc-blank-demo">
+                <p class="sc-blank-sentence">彼らは<span class="sc-blank"><span class="sc-blank-fill">絶えず</span></span>けんかばかりしていた。</p>
+                <div class="sc-blank-chips"><span>いつも</span><span class="hit">絶えず</span><span>たまに</span></div>
+              </div>
+              <p>Cloze exercises generated from your own cards — recall the word inside a real sentence.</p>
+            </article>
+
+            <article class="sc-mini reveal">
+              <div class="sc-mini-head">
+                <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-2.5"/></svg></div>
+                <h4>Grammar Study</h4>
+              </div>
+              <div class="sc-mini-demo sc-gram-demo">
+                <div class="sc-gram-row"><span class="jp">〜ながら</span><span class="chip">N4</span></div>
+                <div class="sc-gram-row"><span class="jp">〜ば〜ほど</span><span class="chip">N3</span></div>
+                <div class="sc-gram-row"><span class="jp">〜つつある</span><span class="chip">N2</span></div>
+                <div class="sc-gram-progress"><span>N3 grammar</span><div class="bar"><i></i></div><em>12/40</em></div>
+              </div>
+              <p>Browse grammar points by JLPT level, study them with examples, and track what you've mastered.</p>
+            </article>
+
+            <article class="sc-mini reveal">
+              <div class="sc-mini-head">
+                <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+                <h4>Study Diary</h4>
+              </div>
+              <div class="sc-mini-demo sc-diary-demo">
+                <div class="sc-diary-row"><em>Mon</em><span>雨。図書館で勉強した。</span></div>
+                <div class="sc-diary-row"><em>Tue</em><span>新しいアニメを見始めた。</span></div>
+                <div class="sc-diary-row today"><em>Wed</em><span><span class="sc-type" style="--n:9">単語を５つ覚えた！</span><span class="sc-caret"></span></span></div>
+                <span class="chip sc-diary-streak"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 3.5-1.5 5-1.5 8a3.5 3.5 0 0 0 7 .5C19.5 14 22 16 22 18a8 8 0 0 1-16 0c0-3 1.5-4.5 2.5-7.5C9.5 8 12 5.5 12 2z" transform="scale(.8) translate(3 3)"/></svg>14-day streak</span>
+              </div>
+              <p>Write a little Japanese every day. Mitsuki keeps the streak — and corrects you as you go.</p>
+            </article>
+
+            <article class="sc-mini reveal">
+              <div class="sc-mini-head">
+                <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+                <h4>Business lessons</h4>
+              </div>
+              <div class="sc-mini-demo sc-biz-demo">
+                <div class="sc-keigo-stage">
+                  <div class="pair p1"><span>行きます</span><i>→</i><b>伺います</b></div>
+                  <div class="pair p2"><span>見ます</span><i>→</i><b>拝見します</b></div>
+                  <div class="pair p3"><span>言います</span><i>→</i><b>申し上げます</b></div>
+                </div>
+                <div class="sc-biz-chips"><span class="chip">Keigo</span><span class="chip">Email</span><span class="chip">Meetings</span><span class="chip">Interviews</span></div>
+              </div>
+              <p>Keigo drills, email composing, meeting phrases, and interview practice — Japanese for the office.</p>
+            </article>
+
+            <article class="sc-mini reveal">
+              <div class="sc-mini-head">
+                <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.7 2.1L21.8 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9z"/></svg></div>
+                <h4>AI language tools</h4>
+              </div>
+              <div class="sc-mini-demo sc-ai-demo">
+                <div class="sc-tone-pills"><span class="t1">Casual</span><span class="t2">Polite</span><span class="t3">Business</span><span class="t4">Customer</span></div>
+                <div class="sc-tone-stage">
+                  <span class="s1">明日行くね</span>
+                  <span class="s2">明日行きます</span>
+                  <span class="s3">明日伺います</span>
+                  <span class="s4">明日お伺いいたします</span>
+                </div>
+                <div class="sc-nat-meter"><span>Naturalness</span><div class="bar"><i></i></div><b>92</b></div>
+              </div>
+              <p>A tone converter across six politeness levels, plus a naturalness check that grades your sentences.</p>
+            </article>
+
+            <article class="sc-mini reveal">
+              <div class="sc-mini-head">
+                <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-.42-8.98 6 6 0 1 0-11.06 3.1A3.5 3.5 0 0 0 7 19.5z"/></svg></div>
+                <h4>Cloud sync</h4>
+              </div>
+              <div class="sc-mini-demo sc-sync-demo">
+                <div class="sc-device mac"><span class="sc-device-word">桜</span><em>Mac</em></div>
+                <div class="sc-sync-line"><span class="sc-sync-dot"></span></div>
+                <div class="sc-device phone"><span class="sc-device-word">桜</span><em>iPhone</em></div>
+              </div>
+              <p>Cards, progress, and streaks stay in sync across devices — add on Mac, review on iPhone.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- ======== E. Spotlight bar (no preview yet) ======== -->
+        <div class="sc-spotlight reveal">
+          <div>
+            <span class="bento-tag">On the roadmap</span>
+            <h3>A Spotlight-style quick bar</h3>
+            <p>Summon Mitsuki from anywhere with a keyboard shortcut — look a word up, add it to your deck, and get back to what you were doing in seconds.</p>
+          </div>
+          <span class="soon-pill">Preview coming soon</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ PRO ============ -->
     <section class="section" id="pro">
       <div class="container">
@@ -283,6 +884,7 @@
           <nav aria-label="Product">
             <h4>Product</h4>
             <a href="#features">Features</a>
+            <a href="#showcase">Inside the app</a>
             <a href="#pro">Mitsuki Pro</a>
             <a href="#download">Download</a>
           </nav>
