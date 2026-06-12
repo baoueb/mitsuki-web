@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mitsuki — Search Japanese words, build flashcards</title>
+  <meta name="description" content="Mitsuki lets you search any Japanese word and turn it into a flashcard. Study with spaced repetition on Mac and iPhone.">
+
+  <meta property="og:title" content="Mitsuki — Japanese, beautifully studied">
+  <meta property="og:description" content="Search Japanese words and turn them into flashcards.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/icon.png">
+
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+
+  <!-- Set theme before first paint to avoid a flash -->
+  <script>
+    (function () {
+      var t = localStorage.getItem("mitsuki-theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Mitsuki home">
+        <img src="assets/icon.png" alt="" width="32" height="32">
+        Mitsuki
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#showcase">Inside the app</a>
+        <a href="#pro">Pro</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button"
+                aria-label="Switch between light and dark theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+          </svg>
+        </button>
+        <a class="btn btn-primary" href="#download">Download</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero-mesh" aria-hidden="true"></div>
+      <canvas id="petals" aria-hidden="true"></canvas>
+
+      <div class="container hero-inner">
+        <div>
+          <span class="hero-eyebrow"><span class="dot" aria-hidden="true"></span> For Japanese learners</span>
+          <h1>Japanese, <em>beautifully</em> studied.</h1>
+          <p class="hero-sub">Search any Japanese word and turn it into a flashcard — on Mac and iPhone.</p>
+
+          <div class="hero-ctas" id="download">
+            <a class="btn btn-primary" href="#" aria-disabled="true" title="App Store link coming soon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              Download for Mac
+              <span class="soon-pill">Soon</span>
+            </a>
+            <a class="btn btn-ghost" href="#" aria-disabled="true" title="App Store link coming soon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18.5h2"/></svg>
+              Get it for iPhone
+              <span class="soon-pill">Soon</span>
+            </a>
+          </div>
+          <p class="hero-note">Free to use. No ads, no tracking — ever.</p>
+        </div>
+
+        <!-- App mockup: lookup → card preview -->
+        <div class="mockup reveal" aria-hidden="true">
+          <div class="mockup-glow"></div>
+          <div class="mockup-card">
+            <div class="mockup-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <span class="mockup-query"><span id="typed"></span><span class="caret"></span></span>
+            </div>
+            <div class="mockup-result" id="mockup-result">
+              <div class="mockup-word">
+                <span class="mockup-expression">桜</span>
+                <span class="mockup-reading">さくら ・ sakura</span>
+              </div>
+              <p class="mockup-def">cherry tree; cherry blossom</p>
+              <div class="mockup-chips">
+                <span class="chip">Common word</span>
+                <span class="chip">Noun</span>
+                <span class="chip success">Example sentence</span>
+              </div>
+              <button class="mockup-add" type="button" tabindex="-1">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                Save to Flashcards
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">Features</p>
+          <h2>Look it up. Make it stick.</h2>
+          <p>Search any Japanese word, save it as a flashcard, and review until you own it.</p>
+        </div>
+
+        <div class="bento stagger">
+          <!-- Core 1: search -->
+          <article class="bento-card wide reveal">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            </div>
+            <h3>Search any word</h3>
+            <p>Type kanji, kana, or rōmaji and get a clean result the moment you start typing — reading, meaning, and an example sentence, ready to read at a glance.</p>
+          </article>
+
+          <!-- Core 2: flashcards -->
+          <article class="bento-card wide reveal">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><rect x="7" y="3" width="15" height="14" rx="2" opacity=".45"/></svg>
+            </div>
+            <h3>Turn it into a flashcard</h3>
+            <p>Save any word to your flashcards in a single tap. Review with spaced repetition and watch a sakura tree bloom as your deck grows.</p>
+          </article>
+
+          <article class="bento-card reveal">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-.42-8.98 6 6 0 1 0-11.06 3.1A3.5 3.5 0 0 0 7 19.5z"/></svg>
+            </div>
+            <h3>Synced across devices</h3>
+            <p>Your words and progress stay in sync between Mac and iPhone — pick up exactly where you left off.</p>
+          </article>
+
+          <article class="bento-card reveal">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 16l.7 2.1L21.8 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9z"/></svg>
+            </div>
+            <h3>AI study tools</h3>
+            <p>Generate study sessions from your own words, check whether a sentence sounds natural, and get clear explanations on demand.</p>
+          </article>
+
+          <article class="bento-card reveal">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+            </div>
+            <h3>JLPT practice</h3>
+            <p>Timed exam simulations with scored results, from N5 to N1. Know where you stand before test day.</p>
+          </article>
+
+          <article class="bento-card reveal">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            </div>
+            <h3>Business Japanese</h3>
+            <p>Keigo, email phrasing, meetings, and interview practice — a full course path for the office.</p>
+          </article>
+
+          <!-- Extras: companion tools (downplayed) -->
+          <article class="bento-card reveal">
+            <span class="bento-tag">Chrome extension</span>
+            <h3>continue-watching</h3>
+            <p>Capture subtitle lines while you watch and turn the sentence you just heard into a flashcard.</p>
+            <a class="bento-link" href="#" aria-disabled="true" title="Download link coming soon">
+              Download <span class="soon-pill">Soon</span>
+            </a>
+          </article>
+
+          <article class="bento-card reveal">
+            <span class="bento-tag">Alexa skill</span>
+            <h3>Voice review</h3>
+            <p>Review your flashcards hands-free on any Echo — answer out loud, grade yourself by voice.</p>
+            <a class="bento-link" href="#" aria-disabled="true" title="Setup guide coming soon">
+              Setup guide <span class="soon-pill">Soon</span>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRO ============ -->
+    <section class="section" id="pro">
+      <div class="container">
+        <div class="pro-card reveal">
+          <div class="pro-grid">
+            <div>
+              <span class="pro-badge">Mitsuki Pro</span>
+              <h2>When you're ready to go further.</h2>
+              <p>The core of Mitsuki — search, flashcards, and sync — is always free. Pro unlocks the heavier AI features for when you want them.</p>
+            </div>
+            <ul class="pro-list">
+              <li>
+                <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                Full AI-generated study sessions, built around your own words
+              </li>
+              <li>
+                <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                AI custom decks from any topic or document
+              </li>
+              <li>
+                <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                Higher daily limits on every AI feature
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRIVACY ============ -->
+    <section class="section privacy-strip" id="privacy">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">Privacy</p>
+          <h2>Your study life is nobody's business.</h2>
+        </div>
+
+        <div class="privacy-cols stagger">
+          <div class="privacy-col reveal">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.6 8-10V5l-8-3-8 3v7c0 6.4 8 10 8 10z"/></svg>
+              Works without an account
+            </h3>
+            <p>Search and study work right on your device. Sign in only when you want your flashcards to sync across devices.</p>
+          </div>
+          <div class="privacy-col reveal">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg>
+              Your data, your account
+            </h3>
+            <p>Your flashcards and progress are protected by per-user access rules — only your account can read your data.</p>
+          </div>
+          <div class="privacy-col reveal">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5.5 5.5 13 13"/></svg>
+              No ads, no tracking
+            </h3>
+            <p>No advertising or analytics SDKs. Mitsuki does not track you across apps or websites — there is nothing to opt out of.</p>
+          </div>
+        </div>
+
+        <div class="privacy-more reveal">
+          <a class="btn btn-ghost" href="privacy.html">Read the full Privacy Policy</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top">
+            <img src="assets/icon.png" alt="" width="32" height="32">
+            Mitsuki
+          </a>
+          <p>Search Japanese words and turn them into flashcards.</p>
+        </div>
+        <div class="footer-links">
+          <nav aria-label="Product">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#pro">Mitsuki Pro</a>
+            <a href="#download">Download</a>
+          </nav>
+          <nav aria-label="Companion tools">
+            <h4>Companion</h4>
+            <a href="#features">continue-watching</a>
+            <a href="#features">Alexa skill</a>
+          </nav>
+          <nav aria-label="Legal and support">
+            <h4>Support</h4>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="mailto:ybaouab2@gmail.com">Contact</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <p>© <span id="year">2026</span> BAOUAB Youssef. All rights reserved.</p>
+        <p>This application uses dictionary data from the JMdict/EDICT Dictionary Project, © James William Breen and the Electronic Dictionary Research and Development Group (EDRDG), used under the EDRDG licence.</p>
+        <p>Anki® is a registered trademark of Ankitects Pty Ltd. Mitsuki is an independent application and is not affiliated with, endorsed by, or sponsored by Ankitects Pty Ltd, AnkiWeb, Anki, or AnkiMobile.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
