@@ -70,7 +70,7 @@
 
       <div class="container hero-inner">
         <div>
-          <span class="hero-eyebrow"><span class="dot" aria-hidden="true"></span> For Japanese learners</span>
+          <span class="hero-eyebrow"><span class="dot" aria-hidden="true"></span> <span lang="ja">身につく日本語</span> — Japanese that sticks</span>
           <h1>Japanese, <em>beautifully</em> studied.</h1>
           <p class="hero-sub">Search any Japanese word and turn it into a flashcard — on Mac and iPhone.</p>
 
@@ -181,7 +181,7 @@
           <!-- Extras: companion tools (downplayed) -->
           <article class="bento-card reveal">
             <span class="bento-tag">Chrome extension</span>
-            <h3>continue-watching</h3>
+            <h3>Mitsuki Extension</h3>
             <p>Capture subtitle lines while you watch and turn the sentence you just heard into a flashcard.</p>
             <a class="bento-link" href="#" aria-disabled="true" title="Download link coming soon">
               Download <span class="soon-pill">Soon</span>
@@ -427,24 +427,30 @@
                   </div>
                 </div>
 
-                <!-- Scene 3: Kanji button -->
+                <!-- Scene 3: Kanji button (on the back card; sheet slides up from the bottom) -->
                 <div class="sc-scene" data-scene="kanji" role="tabpanel">
-                  <div class="sc-kanji-grid">
-                    <div class="sc-cardface sc-mini-front">
-                      <div class="sc-front-big">絶えず</div>
+                  <div class="sc-kanji-stage">
+                    <div class="sc-cardface sc-back-card">
+                      <div class="sc-back-head">
+                        <div><span class="sc-back-word">絶えず</span><span class="sc-back-read">たえず</span></div>
+                        <span class="sc-circle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+                        <span class="sc-circle-btn accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg></span>
+                      </div>
+                      <div class="sc-answerbox">
+                        <em>Answer</em>
+                        <ol><li>constantly</li><li>always</li></ol>
+                      </div>
                       <span class="sc-kanji-fab">字</span>
                     </div>
-                    <div class="sc-kanji-panel">
-                      <div class="sc-kanji-head">
-                        <span class="sc-kanji-big">絶</span>
-                        <div>
-                          <strong>sever · cut off · discontinue</strong>
-                          <div class="sc-kanji-pills"><span class="chip">JLPT N3</span><span class="chip">12 strokes</span></div>
+                    <div class="sc-kanji-sheet">
+                      <span class="sc-kanji-big">絶</span>
+                      <div class="sc-kanji-info">
+                        <strong>sever · cut off · discontinue</strong>
+                        <div class="sc-kanji-pills"><span class="chip">JLPT N3</span><span class="chip">12 strokes</span></div>
+                        <div class="sc-kanji-readings">
+                          <span><em>On</em> ゼツ</span>
+                          <span><em>Kun</em> た・える</span>
                         </div>
-                      </div>
-                      <div class="sc-kanji-readings">
-                        <span><em>On</em> ゼツ</span>
-                        <span><em>Kun</em> た・える</span>
                       </div>
                       <button class="sc-add-mini" type="button" tabindex="-1">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
@@ -533,14 +539,6 @@
                 <span class="sc-rate easy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6L12 16.8 6.6 19.6l1-6L3.3 9.4l6-.9z"/></svg>Easy<em>4d</em></span>
               </div>
 
-              <div class="sc-keys" aria-hidden="true">
-                <span><kbd>Space</kbd> Reveal</span>
-                <span><kbd>1</kbd> Again</span>
-                <span><kbd>2</kbd> Hard</span>
-                <span><kbd>3</kbd> Good</span>
-                <span><kbd>4</kbd> Easy</span>
-              </div>
-
               <div class="sc-quicklook" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
                 <span class="sc-ql-placeholder">Look up a word…</span>
@@ -551,6 +549,93 @@
                 <div><span class="sc-jp-lg">喧嘩</span><span class="sc-read">けんか</span><span class="chip">Noun</span></div>
                 <p>quarrel; fight; squabble</p>
                 <button class="sc-add-mini" type="button" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== B2. Media cards ======== -->
+        <div class="sc-block reveal">
+          <div class="sc-block-head">
+            <h3>Cards that remember where you learned them</h3>
+            <p>Capture a line while you watch with the Mitsuki Extension and it becomes a card with the exact frame, audio, and subtitle — reviewed in the scene you heard it.</p>
+          </div>
+
+          <div class="sc-split sc-split-media">
+            <div class="sc-window sc-media sc-onview" id="media-demo" aria-label="Preview of a media flashcard captured from a show">
+              <div class="sc-titlebar">
+                <span class="sc-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="sc-back" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+                <strong>Review Mode</strong>
+                <span class="sc-tb-icons" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4zM22 9l-6 6m0-6 6 6"/></svg>
+                </span>
+              </div>
+
+              <div class="sc-review-meta">
+                <span>Card 19 of 75</span>
+                <span class="sc-count-pill">18/75</span>
+                <span class="sc-meta-hint">Choose a rating</span>
+              </div>
+              <div class="sc-progress"><i style="width:24%"></i></div>
+
+              <div class="sc-media-body">
+                <div class="sc-media-wordrow">
+                  <span class="sc-back-word">チンタラ</span>
+                  <span class="sc-seen-pill">Seen on Naruto: Shippuden</span>
+                  <span class="sc-circle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+                </div>
+
+                <div class="sc-answerbox">
+                  <em>Answer <span class="sc-more">More</span></em>
+                  <ol><li>to take a lot of time</li></ol>
+                </div>
+
+                <div class="sc-mediabox">
+                  <em>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 15-4.5-4.5L7 20"/></svg>
+                    Media
+                  </em>
+                  <div class="sc-media-frame">
+                    <img src="assets/media-card-example.jpeg" alt="Captured frame from Naruto: Shippuden" loading="lazy" width="640" height="355">
+                    <span class="sc-play-btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+                  </div>
+                  <p class="sc-subline">
+                    <span class="plain">(</span><span class="tok">綱手</span><span class="plain">)</span>
+                    <span class="tok">遅い</span><span class="plain">！</span>
+                    <span class="tok">何</span><span class="tok">を</span><span class="tok hit">チンタラ</span><span class="tok">し</span><span class="tok">て</span><span class="tok">た</span><span class="plain">!?</span>
+                    <span class="tok">ったく</span><span class="plain">！</span>
+                  </p>
+                </div>
+
+                <div class="sc-media-tags">
+                  <span class="chip">subs2anki</span>
+                  <span class="chip">mitsuki-extension</span>
+                </div>
+              </div>
+
+              <div class="sc-ratings" aria-hidden="true">
+                <span class="sc-rate again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>Again<em>1m</em></span>
+                <span class="sc-rate hard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3.5-1.5 5-1.5 8a3.5 3.5 0 0 0 7 .5C19.5 14 22 16 22 18a8 8 0 0 1-16 0c0-3 1.5-4.5 2.5-7.5C9.5 8 12 5.5 12 2z" transform="scale(.85) translate(2 2)"/></svg>Hard<em>1m</em></span>
+                <span class="sc-rate good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Good<em>9m</em></span>
+                <span class="sc-rate easy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6L12 16.8 6.6 19.6l1-6L3.3 9.4l6-.9z"/></svg>Easy<em>4d</em></span>
+              </div>
+              <div class="sc-media-pad"></div>
+            </div>
+
+            <div class="sc-dash-side">
+              <div class="sc-side-item">
+                <h4>The frame comes with the word</h4>
+                <p>Every captured card keeps the screenshot from the exact moment the line was spoken — context your memory can hook onto.</p>
+              </div>
+              <div class="sc-side-item">
+                <h4>Replay the audio</h4>
+                <p>Tap play and hear the line again, voice acting and all. You learned it from Tsunade — you'll remember it from Tsunade.</p>
+              </div>
+              <div class="sc-side-item">
+                <h4>Tokenized subtitles</h4>
+                <p>The subtitle is split into tappable words, with your target word highlighted — look any of them up mid-review.</p>
               </div>
             </div>
           </div>
@@ -789,14 +874,23 @@
           </div>
         </div>
 
-        <!-- ======== E. Spotlight bar (no preview yet) ======== -->
+        <!-- ======== E. Spotlight quick bar ======== -->
         <div class="sc-spotlight reveal">
-          <div>
-            <span class="bento-tag">On the roadmap</span>
+          <div class="sc-spot-copy">
+            <span class="bento-tag">macOS</span>
             <h3>A Spotlight-style quick bar</h3>
-            <p>Summon Mitsuki from anywhere with a keyboard shortcut — look a word up, add it to your deck, and get back to what you were doing in seconds.</p>
+            <p>Summon Mitsuki from anywhere with a keyboard shortcut — look a word up, add it to your deck, and get back to what you were doing in seconds. Every search command works here too.</p>
           </div>
-          <span class="soon-pill">Preview coming soon</span>
+          <div class="sc-spot-stage" aria-label="Preview of the Mitsuki quick bar floating over the desktop">
+            <div class="sc-spot-glass">
+              <div class="sc-spot-bar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <span class="sc-spot-caret" aria-hidden="true"></span>
+                <span class="sc-spot-placeholder">Search word or type cc, ocr, tr, nat…</span>
+              </div>
+              <p class="sc-spot-hint">Type a word, paste Japanese, or use commands: cc, ocr, tr, nat, gr, cor, exp.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -879,6 +973,7 @@
             Mitsuki
           </a>
           <p>Search Japanese words and turn them into flashcards.</p>
+          <p class="footer-motto" lang="ja">身につく日本語</p>
         </div>
         <div class="footer-links">
           <nav aria-label="Product">
@@ -890,7 +985,7 @@
           </nav>
           <nav aria-label="Companion tools">
             <h4>Companion</h4>
-            <a href="#features">continue-watching</a>
+            <a href="#features">Mitsuki Extension</a>
             <a href="#features">Alexa skill</a>
           </nav>
           <nav aria-label="Legal and support">

@@ -569,16 +569,16 @@
     }
   }
 
-  /* ---------- D. Practice minis: start loops when visible ---------- */
-  var minis = document.querySelectorAll(".sc-mini");
+  /* ---------- D. Demos that start when visible (minis, media card) ---------- */
+  var playOnView = document.querySelectorAll(".sc-mini, .sc-onview");
 
-  if (minis.length) {
+  if (playOnView.length) {
     if (reduceMotion) {
-      minis.forEach(function (mini) {
-        mini.classList.add("play");
+      playOnView.forEach(function (el) {
+        el.classList.add("play");
       });
     } else {
-      var miniObserver = new IntersectionObserver(
+      var playObserver = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
             entry.target.classList.toggle("play", entry.isIntersecting);
@@ -586,8 +586,8 @@
         },
         { threshold: 0.3 }
       );
-      minis.forEach(function (mini) {
-        miniObserver.observe(mini);
+      playOnView.forEach(function (el) {
+        playObserver.observe(el);
       });
     }
   }
