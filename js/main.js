@@ -592,3 +592,165 @@
     }
   }
 })();
+
+/* ============================================================
+   Navigation, FAQ accordion, and small interaction guards
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Mobile navigation ---------- */
+  var nav = document.getElementById("nav");
+  var navToggle = document.getElementById("nav-toggle");
+  var mobileNav = document.getElementById("mobile-nav");
+  var scrim = document.getElementById("nav-scrim");
+  var navIsOpen = false;
+  var scrimTimer = null;
+
+  function setNav(open) {
+    if (!nav || !navToggle) return;
+    navIsOpen = open;
+    nav.classList.toggle("nav-open", open);
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+
+    clearTimeout(scrimTimer);
+    if (open) {
+      scrim.hidden = false;
+      // next frame so the opacity transition runs
+      requestAnimationFrame(function () {
+        scrim.classList.add("show");
+      });
+      // a single scroll dismisses the panel, like a native sheet
+      addEventListener("scroll", closeOnScroll, { passive: true, once: true });
+    } else {
+      scrim.classList.remove("show");
+      removeEventListener("scroll", closeOnScroll);
+      scrimTimer = setTimeout(
+        function () {
+          scrim.hidden = true;
+        },
+        reduceMotion ? 0 : 260
+      );
+    }
+  }
+
+  function closeNav() {
+    setNav(false);
+  }
+  function closeOnScroll() {
+    if (navIsOpen) closeNav();
+  }
+
+  if (navToggle && mobileNav && scrim) {
+    navToggle.addEventListener("click", function () {
+      setNav(!navIsOpen);
+    });
+    scrim.addEventListener("click", closeNav);
+    mobileNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeNav);
+    });
+    addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && navIsOpen) {
+        closeNav();
+        navToggle.focus();
+      }
+    });
+    // if the viewport grows past the mobile breakpoint, never stay stuck open
+    matchMedia("(min-width: 761px)").addEventListener("change", function (e) {
+      if (e.matches && navIsOpen) closeNav();
+    });
+  }
+
+  /* ---------- Scrollspy: highlight the section in view ---------- */
+  var spyLinks = Array.prototype.slice.call(
+    document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav a[href^="#"]')
+  );
+
+  if (spyLinks.length && "IntersectionObserver" in window) {
+    var linksByHash = {};
+    spyLinks.forEach(function (link) {
+      var hash = link.getAttribute("href");
+      (linksByHash[hash] = linksByHash[hash] || []).push(link);
+    });
+
+    var sections = Object.keys(linksByHash)
+      .map(function (hash) {
+        return document.querySelector(hash);
+      })
+      .filter(Boolean);
+
+    var setActive = function (hash) {
+      spyLinks.forEach(function (link) {
+        link.classList.toggle("active", link.getAttribute("href") === hash);
+      });
+    };
+
+    var spy = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive("#" + entry.target.id);
+        });
+      },
+      // the active section is the one crossing the upper-middle band
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    sections.forEach(function (section) {
+      spy.observe(section);
+    });
+  }
+
+  /* ---------- FAQ accordion ---------- */
+  var faqList = document.getElementById("faq-list");
+
+  if (faqList) {
+    var openItem = function (item) {
+      var panel = item.querySelector(".faq-a");
+      var btn = item.querySelector(".faq-q");
+      panel.hidden = false;
+      void panel.offsetHeight; // reflow so grid-template-rows can transition
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    };
+
+    var closeItem = function (item) {
+      var panel = item.querySelector(".faq-a");
+      var btn = item.querySelector(".faq-q");
+      item.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+
+      if (reduceMotion) {
+        panel.hidden = true;
+        return;
+      }
+      // hide from the a11y tree only after the collapse finishes
+      var onEnd = function (e) {
+        if (
+          e.target === panel &&
+          e.propertyName === "grid-template-rows" &&
+          !item.classList.contains("open")
+        ) {
+          panel.hidden = true;
+          panel.removeEventListener("transitionend", onEnd);
+        }
+      };
+      panel.addEventListener("transitionend", onEnd);
+    };
+
+    faqList.querySelectorAll(".faq-q").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var item = btn.closest(".faq-item");
+        if (item.classList.contains("open")) closeItem(item);
+        else openItem(item);
+      });
+    });
+  }
+
+  /* ---------- Don't let disabled (#) links jump to the top ---------- */
+  document.addEventListener("click", function (e) {
+    var disabled = e.target.closest('a[aria-disabled="true"]');
+    if (disabled) e.preventDefault();
+  });
+})();
