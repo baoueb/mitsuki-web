@@ -7,6 +7,9 @@
   <meta name="description" content="Privacy Policy for Mitsuki, the offline-first Japanese learning app. No ads, no tracking, offline by design.">
   <meta name="robots" content="index, follow">
 
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+
   <script>
     (function () {
       var t = localStorage.getItem("mitsuki-theme");
@@ -21,15 +24,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
-  <!-- IconForge App Icons -->
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-  <link rel="manifest" href="assets/manifest.webmanifest">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="application-name" content="Mitsuki">
-  <!-- /IconForge App Icons -->
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
