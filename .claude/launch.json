@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mitsuki-website",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "8765", "/Users/yoyo/Documents/JapaneseLearningSystem/mitsuki-website"],
+      "port": 8765
+    }
+  ]
+}

@@ -46,7 +46,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
 
-  <header class="nav scrolled" id="nav">
+  <header class="nav" id="nav">
     <div class="nav-inner">
       <a class="brand" href="#top" aria-label="Mitsuki home">
         <img src="assets/icon.png" alt="" width="32" height="32">
@@ -92,13 +92,13 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="top">
       <div class="hero-mesh" aria-hidden="true"></div>
-      <canvas id="petals" aria-hidden="true" width="1930" height="1472" style="width: 965px; height: 736.140625px;"></canvas>
+      <canvas id="petals" aria-hidden="true" width="2536" height="1377" style="width: 1268px; height: 688.75px;"></canvas>
 
       <div class="container hero-inner">
         <div>
           <span class="hero-eyebrow"><span class="dot" aria-hidden="true"></span> <span class="hero-eyebrow-jp" lang="ja">身につく日本語</span> <span class="hero-eyebrow-en">— Japanese that stays with you</span></span>
           <h1>Japanese that <em>stays</em> with you.</h1>
-          <p class="hero-sub">Look up a word. Save it. Review when it matters.</p>
+          <p class="hero-sub">Look up a word ー and learn it.</p>
 
           <div class="hero-ctas" id="download">
             <a class="btn btn-primary" href="https://github.com/baoueb/Mitsuki/releases/download/v1.0.5/Mitsuki%201.0.5.dmg">
@@ -122,7 +122,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
               <span class="mockup-query"><span id="typed">sakura</span><span class="caret"></span></span>
             </div>
-            <div class="mockup-result" id="mockup-result">
+            <div class="mockup-result show" id="mockup-result">
               <div class="mockup-word">
                 <span class="mockup-expression">桜</span>
                 <span class="mockup-reading">さくら ・ sakura</span>
@@ -131,7 +131,15 @@
               <div class="mockup-chips">
                 <span class="chip">Common word</span>
                 <span class="chip">Noun</span>
-                <span class="chip success">桜が大好きです。</span>
+              </div>
+              <div class="mockup-example-card">
+                <div class="mockup-example-text">
+                  <span class="mockup-example-jp">日本の<mark class="mockup-mark">桜</mark>は世界中で有名です。</span>
+                  <span class="mockup-example-en">Japan's cherry blossoms are famous worldwide.</span>
+                </div>
+                <button class="mockup-example-audio" type="button" tabindex="-1" aria-label="Play audio">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
+                </button>
               </div>
               <button class="mockup-add" type="button" tabindex="-1">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
@@ -285,14 +293,14 @@
               <div class="sc-cmd-body">
                 <div class="sc-searchbar">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
-                  <span class="sc-cmd-typed" id="cmd-typed">/nat</span><span class="sc-caret" aria-hidden="true"></span>
+                  <span class="sc-cmd-typed" id="cmd-typed">/gr ながら</span><span class="sc-caret" aria-hidden="true"></span>
                   <span class="sc-search-btn">Search</span>
                 </div>
 
                 <ul class="sc-palette open" id="cmd-palette" aria-hidden="true">
-                  <li data-trigger="/gr" hidden=""><kbd>/gr</kbd><span>Grammar Lookup</span></li>
+                  <li data-trigger="/gr" class="selected"><kbd>/gr</kbd><span>Grammar Lookup</span></li>
                   <li data-trigger="/tr" hidden=""><kbd>/tr</kbd><span>Translate Clipboard</span></li>
-                  <li data-trigger="/nat" class="selected"><kbd>/nat</kbd><span>Check Naturalness</span></li>
+                  <li data-trigger="/nat" hidden=""><kbd>/nat</kbd><span>Check Naturalness</span></li>
                   <li data-trigger="/cor" hidden=""><kbd>/cor</kbd><span>Correct Sentence</span></li>
                   <li data-trigger="/exp" hidden=""><kbd>/exp</kbd><span>Explain Japanese</span></li>
                   <li data-trigger="/cc" hidden=""><kbd>/cc</kbd><span>Search Clipboard</span></li>
@@ -635,7 +643,7 @@
                 </div>
 
                 <div class="sc-media-tags">
-                  <span class="chip">subs2anki</span>
+                  <span class="chip">subs2mitsuki</span>
                   <span class="chip">mitsuki-extension</span>
                 </div>
               </div>
@@ -698,7 +706,7 @@
                   <span class="chip">❄ 2</span>
                 </div>
 
-                <div class="sc-tree-wrap" id="tree" data-wave="0">
+                <div class="sc-tree-wrap" id="tree" data-wave="3">
                   <svg viewBox="0 0 240 210" aria-hidden="true">
                     <ellipse cx="120" cy="197" rx="50" ry="7" class="sc-tree-ground"></ellipse>
                     <path class="sc-tree-line trunk" pathLength="1" d="M120 196 C117 168 122 150 118 128 C114 108 106 96 102 82"></path>
@@ -725,7 +733,7 @@
                   <span class="sc-fpetal" aria-hidden="true"></span>
                   <span class="sc-fpetal" aria-hidden="true"></span>
                   <span class="sc-fpetal" aria-hidden="true"></span>
-                  <span class="sc-stage-label" id="tree-label">Sprout</span>
+                  <span class="sc-stage-label pop" id="tree-label">Full Bloom</span>
                 </div>
 
                 <div class="sc-gauges">
@@ -735,8 +743,8 @@
                     <em>Today's goal</em>
                   </div>
                   <div class="sc-gauge">
-                    <svg viewBox="0 0 64 64"><circle class="rbg" cx="32" cy="32" r="26" pathLength="100"></circle><circle class="rfg" id="bloom-ring" cx="32" cy="32" r="26" pathLength="100"></circle></svg>
-                    <div class="sc-gauge-txt"><b id="bloom-word" class="sc-bloom-word">Sprout</b></div>
+                    <svg viewBox="0 0 64 64"><circle class="rbg" cx="32" cy="32" r="26" pathLength="100"></circle><circle class="rfg" id="bloom-ring" cx="32" cy="32" r="26" pathLength="100" style="stroke-dashoffset: 0px;"></circle></svg>
+                    <div class="sc-gauge-txt"><b id="bloom-word" class="sc-bloom-word">Full Bloom</b></div>
                     <em>Bloom</em>
                   </div>
                 </div>
