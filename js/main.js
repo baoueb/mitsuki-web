@@ -753,4 +753,16 @@
     var disabled = e.target.closest('a[aria-disabled="true"]');
     if (disabled) e.preventDefault();
   });
+
+  /* ---------- Dynamic download link (always latest GitHub release) ---------- */
+  fetch("https://api.github.com/repos/baoueb/Mitsuki/releases/latest")
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var dmg = (data.assets || []).find(function (a) { return a.name.endsWith(".dmg"); });
+      if (!dmg) return;
+      document.querySelectorAll("a[data-download]").forEach(function (el) {
+        el.href = dmg.browser_download_url;
+      });
+    })
+    .catch(function () {});
 })();
