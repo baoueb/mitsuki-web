@@ -945,15 +945,8 @@
     if (disabled) e.preventDefault();
   });
 
-  /* ---------- Dynamic download link (always latest GitHub release) ---------- */
-  fetch("https://api.github.com/repos/baoueb/Mitsuki/releases/latest")
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      var dmg = (data.assets || []).find(function (a) { return a.name.endsWith(".dmg"); });
-      if (!dmg) return;
-      document.querySelectorAll("a[data-download]").forEach(function (el) {
-        el.href = dmg.browser_download_url;
-      });
-    })
-    .catch(function () {});
+  /* ---------- Download link ----------
+     The download buttons point at /download/mac. The Cloudflare Worker resolves
+     that to the latest GitHub release DMG and logs an anonymous, server-side
+     click. Nothing to do on the client — and it works even with JS disabled. */
 })();
