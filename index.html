@@ -5,6 +5,7 @@
   <title>Mitsuki — Japanese, made to stay</title>
   <meta name="description" content="A quiet, focused way to look up Japanese words, save them, and remember them.">
 
+  <meta name="google-site-verification" content="70dNfQIuqkXc-LH8qN6UcrABFzzEn81xI1q19hvLMRo" />
   <meta property="og:title" content="Mitsuki — Japanese, made to stay">
   <meta property="og:description" content="Look up Japanese. Remember it.">
   <meta property="og:type" content="website">
@@ -216,6 +217,7 @@
             <span class="bento-tag">Chrome extension</span>
             <h3>Mitsuki Extension</h3>
             <p>Save subtitle lines as flashcards while you watch.</p>
+            <a class="bento-link" href="#ext-demo">See it in action</a>
             <a class="bento-link" href="#" aria-disabled="true" title="Download link coming soon">
               Download <span class="soon-pill">Soon</span>
             </a>
@@ -587,91 +589,160 @@
           </div>
         </div>
 
-        <!-- ======== B2. Media cards ======== -->
-        <div class="sc-block reveal">
+        <!-- ======== B1½. Extension capture flow ======== -->
+        <div class="sc-block reveal" id="ext-demo">
           <div class="sc-block-head">
-            <h3>Cards with context.</h3>
-            <p>Capture a line while you watch. Mitsuki keeps the frame, audio, and subtitle with your card.</p>
+            <h3>Watch. Tap. Learned.</h3>
+            <p>The Mitsuki extension fetches Japanese subtitles for whatever you're watching. Tap a word you don't know — the scene becomes a flashcard, frame, audio and line included.</p>
           </div>
 
-          <div class="sc-split sc-split-media">
-            <div class="sc-window sc-media sc-onview" id="media-demo" aria-label="Preview of a media flashcard captured from a show">
-              <div class="sc-titlebar">
-                <span class="sc-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                <span class="sc-back" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></span>
-                <strong>Review Mode</strong>
-                <span class="sc-tb-icons" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4zM22 9l-6 6m0-6 6 6"></path></svg>
+          <div class="sc-ext" id="ext-stage" role="img" aria-label="Animated preview: while watching an anime in the browser, the word 倒し in the Japanese subtitles is tapped. A dictionary popup shows the meaning, the scene is captured with its frame, audio and subtitle line, and lands in Mitsuki as a flashcard — first the front with the word, then the revealed answer with the scene.">
+            <div class="sc-window sc-ext-browser">
+              <div class="sc-titlebar sc-ext-titlebar">
+                <span class="sc-dots"><i></i><i></i><i></i></span>
+                <span class="sc-ext-url">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+                  miruro.tv<em> — Naruto: Shippuden · Ep. 333</em>
                 </span>
+                <span class="sc-ext-extbtn"><img src="assets/icon.png" alt="" width="18" height="18"><i></i></span>
               </div>
 
-              <div class="sc-review-meta">
-                <span>Card 19 of 75</span>
-                <span class="sc-count-pill">18/75</span>
-                <span class="sc-meta-hint">Choose a rating</span>
+              <div class="sc-ext-player" id="ext-player">
+                <img class="sc-ext-still" src="assets/sasuke-scene.jpg" alt="" width="1280" height="720">
+                <span class="sc-ext-autosub">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M7 13h4m2 0h4M7 16h2m3 0h5"></path></svg>
+                  Loaded Japanese subtitles for Naruto: Shippuden
+                </span>
+
+                <div class="sc-ext-subs main">
+                  <span class="sc-ext-subline">（カブト）キミはうちは一族の敵である</span>
+                  <span class="sc-ext-subline">イタチを<span class="jsp">&#12288;</span>また<span class="sc-ext-tok" id="ext-tok">倒し</span>たい。</span>
+                </div>
+
+                <div class="sc-ext-ctrls">
+                  <span class="sc-ext-bar"><i></i></span>
+                  <span class="sc-ext-ctrlrow">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zm4 7 9-7v14z" transform="scale(-1,1) translate(-24,0)"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zm4 7 9-7v14z"></path></svg>
+                    <span class="sc-ext-time">18:50 <em>/ 23:09</em></span>
+                    <span class="sc-ext-ctrlgap"></span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M7 13h4m2 0h4M7 16h2m3 0h5"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M3 5h18v12H3z"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                  </span>
+                </div>
+
+                <div class="sc-ext-pop" id="ext-pop">
+                  <span class="sc-ext-pop-word">倒し<em>こかす</em></span>
+                  <span class="sc-ext-pop-def">to knock down</span>
+                </div>
+
+                <div class="sc-ext-toast" id="ext-toast">
+                  <span class="sc-ext-check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                  </span>
+                  <span class="sc-ext-toast-text">
+                    <span><strong>Added &#8220;倒し&#8221;</strong><em>こかす</em></span>
+                    <small>to knock down</small>
+                  </span>
+                </div>
+
+                <span class="sc-ext-ring" id="ext-ring"></span>
               </div>
-              <div class="sc-progress"><i style="width:24%"></i></div>
 
-              <div class="sc-media-body">
-                <div class="sc-media-wordrow">
-                  <span class="sc-back-word">チンタラ</span>
-                  <span class="sc-seen-pill">Seen on Naruto: Shippuden</span>
-                  <span class="sc-circle-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></span>
-                </div>
+              <svg class="sc-ext-cursor" id="ext-cursor" viewBox="0 0 24 24">
+                <path d="M5.6 2.8 18.9 13a.55.55 0 0 1-.27.98l-5.8.75a.55.55 0 0 0-.4.28l-2.86 5.1a.55.55 0 0 1-1.02-.14L4.7 3.4a.55.55 0 0 1 .9-.6Z" fill="#1c1e26" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"></path>
+              </svg>
+            </div>
 
-                <div class="sc-answerbox">
-                  <em>Answer <span class="sc-more">More</span></em>
-                  <ol><li>to take a lot of time</li></ol>
-                </div>
+            <div class="sc-ext-phone" id="ext-phone">
+              <div class="sc-ext-phone-head">
+                <span class="sc-ext-review-meta">
+                  <span>Card 1 of 1</span>
+                  <span class="sc-ext-count">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l3 3"></path></svg>
+                    1/1
+                  </span>
+                </span>
+                <span class="sc-ext-phone-face pre">Reveal the answer</span>
+                <span class="sc-ext-phone-face post">Choose a rating</span>
+              </div>
+              <div class="sc-ext-progress"><i></i></div>
 
-                <div class="sc-mediabox">
-                  <em>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="m21 15-4.5-4.5L7 20"></path></svg>
-                    Media
-                  </em>
-                  <div class="sc-media-frame">
-                    <img src="assets/media-card-example.jpeg" alt="Captured frame from Naruto: Shippuden" loading="lazy" width="640" height="355">
-                    <span class="sc-play-btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span>
+              <div class="sc-ext-cardstack" id="ext-cardstack">
+                <div class="sc-ext-card" id="ext-card">
+                  <div class="sc-ext-wordrow">
+                    <span class="sc-ext-word">倒す<em>たおす</em></span>
+                    <span class="sc-seen-pill">Seen on Naruto: Shippuden</span>
+                    <span class="sc-ext-speak" title="Apple text-to-speech (disabled in preview)" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.6 5.4a9 9 0 0 1 0 13.2"></path></svg>
+                    </span>
                   </div>
-                  <p class="sc-subline">
-                    <span class="plain">(</span><span class="tok">綱手</span><span class="plain">)</span>
-                    <span class="tok">遅い</span><span class="plain">！</span>
-                    <span class="tok">何</span><span class="tok">を</span><span class="tok hit">チンタラ</span><span class="tok">し</span><span class="tok">て</span><span class="tok">た</span><span class="plain">!?</span>
-                    <span class="tok">ったく</span><span class="plain">！</span>
-                  </p>
+
+                  <div class="sc-answerbox sc-ext-answer">
+                    <em>Answer <span class="sc-more">More</span></em>
+                    <ol><li>to knock down</li></ol>
+                  </div>
+
+                  <div class="sc-mediabox sc-ext-mediabox">
+                    <em>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="m21 15-4.5-4.5L7 20"></path></svg>
+                      Media
+                    </em>
+                    <div class="sc-media-frame sc-ext-slot" id="ext-slot">
+                      <img src="assets/sasuke-scene.jpg" alt="" width="1280" height="720">
+                      <span class="sc-ext-mediabtn" title="Play scene audio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7M18.6 5.4a9 9 0 0 1 0 13.2"></path></svg></span>
+                    </div>
+                    <p class="sc-ext-minisub">
+                      <span class="plain">（カブト）キミはうちは一族の敵である</span><br>
+                      <span class="plain">イタチを　また</span><span class="hl">倒し</span><span class="plain">たい。</span>
+                    </p>
+                  </div>
+
+                  <div class="sc-media-tags">
+                    <span class="chip">continue-watching</span>
+                    <span class="chip">mitsuki-extension</span>
+                  </div>
                 </div>
 
-                <div class="sc-media-tags">
-                  <span class="chip">subs2mitsuki</span>
-                  <span class="chip">mitsuki-extension</span>
+                <div class="sc-ext-front" id="ext-front">
+                  <div class="sc-ext-front-top">
+                    <span class="sc-ext-front-label">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"></rect></svg>
+                      Front
+                    </span>
+                    <span class="chip">Mitsuki</span>
+                  </div>
+                  <div class="sc-ext-front-word">
+                    <span class="sc-ext-front-jp">倒す <span class="sc-seen-pill">Seen on Naruto: Shippuden</span></span>
+                    <em>たおす</em>
+                  </div>
+                  <div class="sc-ext-front-hint">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"></path></svg>
+                    Tap or press Space to reveal
+                    <span class="sc-ext-ji">字</span>
+                  </div>
                 </div>
+
               </div>
 
-              <div class="sc-ratings" aria-hidden="true">
+              <div class="sc-ratings sc-ext-ratingrow" id="ext-ratingrow" aria-hidden="true">
                 <span class="sc-rate again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"></path><path d="M3 3v5h5"></path></svg>Again<em>1m</em></span>
                 <span class="sc-rate hard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3.5-1.5 5-1.5 8a3.5 3.5 0 0 0 7 .5C19.5 14 22 16 22 18a8 8 0 0 1-16 0c0-3 1.5-4.5 2.5-7.5C9.5 8 12 5.5 12 2z" transform="scale(.85) translate(2 2)"></path></svg>Hard<em>1m</em></span>
                 <span class="sc-rate good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Good<em>9m</em></span>
                 <span class="sc-rate easy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 6L12 16.8 6.6 19.6l1-6L3.3 9.4l6-.9z"></path></svg>Easy<em>4d</em></span>
               </div>
-              <div class="sc-media-pad"></div>
-            </div>
-
-            <div class="sc-dash-side">
-              <div class="sc-side-item">
-                <h4>The scene stays with the word</h4>
-                <p>Every captured card keeps the exact frame, so the word has a place in your memory.</p>
-              </div>
-              <div class="sc-side-item">
-                <h4>Replay the audio</h4>
-                <p>Replay the line and hear it again in context.</p>
-              </div>
-              <div class="sc-side-item">
-                <h4>Tokenized subtitles</h4>
-                <p>Subtitles become tappable words. Your target word is highlighted.</p>
-              </div>
             </div>
           </div>
+
+          <ol class="sc-ext-steps" id="ext-steps">
+            <li data-step="subs"><i></i><span>Subtitles fetched automatically</span></li>
+            <li data-step="tap"><i></i><span>Tap a word you don&#8217;t know</span></li>
+            <li data-step="save"><i></i><span>Frame, audio &amp; line captured</span></li>
+            <li data-step="deck"><i></i><span>Review it in Mitsuki</span></li>
+          </ol>
         </div>
 
         <!-- ======== C. Deck Dashboard ======== -->
