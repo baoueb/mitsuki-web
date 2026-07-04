@@ -3657,53 +3657,6 @@ del {
   }
 }
 
-.sc-subline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 7px 5px;
-  margin-top: 13px;
-  font-weight: 620;
-  font-size: 0.9375rem;
-}
-
-.sc-subline .tok {
-  padding: 3px 9px;
-  border-radius: 8px;
-  background: var(--chip-bg);
-  color: var(--chip-text);
-}
-
-.sc-subline .tok.hit {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-
-.sc-subline .plain {
-  color: var(--ink-2);
-}
-
-.sc-onview.play .sc-subline > * {
-  opacity: 0;
-  animation: sc-fade-up 0.4s var(--ease-out) both;
-}
-
-.sc-onview.play .sc-subline > :nth-child(1) { animation-delay: 0.55s; }
-.sc-onview.play .sc-subline > :nth-child(2) { animation-delay: 0.62s; }
-.sc-onview.play .sc-subline > :nth-child(3) { animation-delay: 0.69s; }
-.sc-onview.play .sc-subline > :nth-child(4) { animation-delay: 0.76s; }
-.sc-onview.play .sc-subline > :nth-child(5) { animation-delay: 0.83s; }
-.sc-onview.play .sc-subline > :nth-child(6) { animation-delay: 0.9s; }
-.sc-onview.play .sc-subline > :nth-child(7) { animation-delay: 0.97s; }
-.sc-onview.play .sc-subline > :nth-child(8) { animation-delay: 1.04s; }
-.sc-onview.play .sc-subline > :nth-child(9) { animation-delay: 1.11s; }
-.sc-onview.play .sc-subline > :nth-child(10) { animation-delay: 1.18s; }
-.sc-onview.play .sc-subline > :nth-child(11) { animation-delay: 1.25s; }
-.sc-onview.play .sc-subline > :nth-child(12) { animation-delay: 1.32s; }
-.sc-onview.play .sc-subline > :nth-child(13) { animation-delay: 1.39s; }
-.sc-onview.play .sc-subline > :nth-child(14) { animation-delay: 1.46s; }
-
 .sc-media-tags {
   display: flex;
   gap: 8px;
@@ -4790,8 +4743,7 @@ del {
   }
   .sc-stream .w,
   .sc-bubble.ai .w,
-  .sc-field span,
-  .sc-onview.play .sc-subline > * {
+  .sc-field span {
     opacity: 1;
     animation: none !important;
   }
@@ -4808,3 +4760,913 @@ del {
     display: none;
   }
 }
+
+/* ============================================================
+   Extension capture demo (#ext-demo)
+   A scripted "screen recording": subtitles fade in over the
+   player, a cursor taps 倒し, a dictionary popup confirms it,
+   and the scene flies into the Mitsuki card on the right.
+   Timeline classes (.p-subs → .p-cursor → .p-hover → .p-hit →
+   .p-save → .p-deck → .p-coda) are applied by js/main.js.
+   ============================================================ */
+.sc-ext {
+  --sc-ext-hi: #ffab40;          /* the extension's orange highlight */
+  --sc-ext-hi-ink: #2b1c04;
+  --sc-ext-glass: rgba(17, 19, 28, 0.88);
+  --sc-ext-gap: clamp(18px, 2.8vw, 33px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden; /* clips the card while it's parked off the right edge */
+}
+
+/* ---------- Browser window: fills the width, then shrinks when the card enters ---------- */
+.sc-ext-browser {
+  container-type: inline-size;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 980px) {
+  .sc-ext {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sc-ext-browser {
+    flex: none;
+    width: 100%;
+  }
+}
+
+.sc-ext-titlebar {
+  gap: 10px;
+}
+
+.sc-ext-url {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: -2px 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  font-size: var(--text-xs);
+  font-weight: 640;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sc-ext-url svg {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  color: var(--ink-3);
+}
+
+.sc-ext-url em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sc-ext-extbtn {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+}
+
+.sc-ext-extbtn img {
+  display: block;
+  border-radius: 5px;
+}
+
+.sc-ext-extbtn i {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--sc-ext-hi);
+  border: 2px solid var(--surface);
+}
+
+/* ---------- Player ---------- */
+.sc-ext-player {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #0b0d14;
+  overflow: hidden;
+  user-select: none;
+}
+
+.sc-ext-still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* "subtitles matched" chip */
+.sc-ext-autosub {
+  position: absolute;
+  top: 4.5%;
+  left: 50%;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--sc-ext-glass);
+  color: #fff;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-size: clamp(10px, 2.1cqw, 13px);
+  font-weight: 640;
+  opacity: 0;
+  transform: translate(-50%, -8px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+
+.sc-ext-autosub svg {
+  width: 1.25em;
+  height: 1.25em;
+  color: var(--sc-ext-hi);
+}
+
+.p-subs .sc-ext-autosub {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.p-cursor .sc-ext-autosub {
+  opacity: 0;
+  transform: translate(-50%, -8px);
+}
+
+/* ---------- Subtitles ---------- */
+.sc-ext-subs {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 14%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+  text-align: center;
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+  font-size: clamp(12px, 3.1cqw, 21px);
+  font-weight: 600;
+  line-height: 1.45;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.5);
+  /* subtitles are "off" until the extension loads them — no entrance
+     slide, just the same fade the "Loaded subtitles" banner uses */
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.p-subs .sc-ext-subs {
+  opacity: 1;
+}
+
+.sc-ext-subline {
+  opacity: 1;
+}
+
+.sc-ext-tok {
+  border-radius: 0.28em;
+  padding: 0.02em 0.12em;
+  margin: 0 0.03em;
+  transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out);
+}
+
+.p-hover .sc-ext-tok {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.p-hit .sc-ext-tok {
+  background: var(--sc-ext-hi);
+  color: var(--sc-ext-hi-ink);
+  text-shadow: none;
+}
+
+/* ---------- Player controls ---------- */
+.sc-ext-ctrls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.4cqw, 10px);
+  padding: clamp(8px, 2cqw, 14px) clamp(10px, 2.4cqw, 18px);
+  background: linear-gradient(transparent, rgba(4, 6, 11, 0.8));
+}
+
+.sc-ext-bar {
+  display: block;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.26);
+  overflow: hidden;
+}
+
+.sc-ext-bar i {
+  display: block;
+  height: 100%;
+  width: 81%;
+  border-radius: inherit;
+  background: #fff;
+}
+
+.sc-ext-ctrlrow {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2.2cqw, 16px);
+  color: #fff;
+}
+
+.sc-ext-ctrlrow svg {
+  flex: none;
+  width: clamp(12px, 2.6cqw, 19px);
+  height: auto;
+  opacity: 0.92;
+}
+
+.sc-ext-time {
+  font-size: clamp(9px, 2cqw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.sc-ext-time em {
+  font-style: normal;
+  opacity: 0.6;
+}
+
+.sc-ext-ctrlgap {
+  flex: 1;
+}
+
+/* ---------- Dictionary popup ---------- */
+.sc-ext-pop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.55em 0.85em 0.6em;
+  border-radius: 0.7em;
+  background: rgba(22, 24, 32, 0.96);
+  color: #fff;
+  font-size: clamp(10px, 2.3cqw, 15px);
+  line-height: 1.35;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 0.7em)) scale(0.85);
+  transform-origin: 50% 100%;
+  transition: opacity 0.26s var(--ease-out), transform 0.4s var(--spring-snap);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.sc-ext-pop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.28em;
+  width: 0.7em;
+  height: 0.7em;
+  background: inherit;
+  border-radius: 2px;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.p-hover .sc-ext-pop {
+  opacity: 1;
+  transform: translate(-50%, calc(-100% - 1em)) scale(1);
+}
+
+.sc-ext-pop-word {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  font-weight: 700;
+}
+
+.sc-ext-pop-word em {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.78em;
+  opacity: 0.72;
+}
+
+.sc-ext-pop-def {
+  font-size: 0.82em;
+  opacity: 0.85;
+}
+
+/* ---------- "Added" toast — top banner, same spot as "Loaded subtitles" ---------- */
+.sc-ext-toast {
+  position: absolute;
+  top: 4.5%;
+  left: 50%;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.68em 0.95em;
+  border-radius: 0.8em;
+  background: rgba(22, 24, 32, 0.94);
+  color: #fff;
+  font-size: clamp(10px, 2.2cqw, 14px);
+  line-height: 1.25;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translate(-50%, -8px) scale(0.94);
+  transition: opacity 0.3s var(--ease-out), transform 0.45s var(--spring-snap);
+  white-space: nowrap;
+}
+
+.p-save .sc-ext-toast {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.p-save.toast-out .sc-ext-toast {
+  opacity: 0;
+  transform: translate(-50%, -8px) scale(0.96);
+}
+
+.sc-ext-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.75em;
+  height: 1.75em;
+  border-radius: 50%;
+  background: var(--success);
+  color: #fff;
+}
+
+.sc-ext-check svg {
+  width: 58%;
+  height: 58%;
+}
+
+.sc-ext-toast-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sc-ext-toast-text em {
+  font-style: normal;
+  opacity: 0.7;
+  font-size: 0.85em;
+  margin-left: 0.5em;
+}
+
+.sc-ext-toast-text small {
+  font-size: 0.85em;
+  opacity: 0.75;
+}
+
+/* ---------- Click ripple + cursor ---------- */
+.sc-ext-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 8;
+  width: 15px;
+  height: 15px;
+  border: 2.5px solid #fff;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  pointer-events: none;
+}
+
+.sc-ext-ring.go {
+  animation: ext-ring 0.55s var(--ease-out) both;
+}
+
+@keyframes ext-ring {
+  0% { opacity: 0.9; transform: translate(-50%, -50%) scale(0.4); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.7); }
+}
+
+.sc-ext-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  width: clamp(17px, 3.6cqw, 25px);
+  height: auto;
+  opacity: 0;
+  transform: translate(var(--cx, 0px), var(--cy, 0px)) scale(var(--cs, 1));
+  transform-origin: 22% 12%;
+  transition: transform 1s cubic-bezier(0.45, 0.05, 0.15, 1), opacity 0.35s var(--ease-out);
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+}
+
+.sc-ext-cursor.jump {
+  transition: opacity 0.35s var(--ease-out); /* teleport without gliding */
+}
+
+.sc-ext-cursor.show {
+  opacity: 1;
+}
+
+.sc-ext-cursor.down {
+  --cs: 0.8;
+  transition-duration: 0.12s;
+}
+
+/* ---------- Phone (Mitsuki) — parked off the right, slides into place when
+   the word is added; the player (flex:1) reclaims/yields the space ---------- */
+.sc-ext-phone {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px 18px 22px;
+  border-radius: 28px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-lift);
+  flex: 0 0 40%;
+  min-width: 0;
+  margin-left: var(--sc-ext-gap);
+  /* parked just past the right edge so the player fills the whole width */
+  margin-right: calc(-40% - var(--sc-ext-gap));
+  opacity: 0;
+  transition: margin-right 0.72s var(--ease-drawer), opacity 0.5s var(--ease-out);
+  will-change: margin-right, opacity;
+}
+
+.sc-ext.open .sc-ext-phone {
+  margin-right: 0;
+  opacity: 1;
+}
+
+@media (max-width: 980px) {
+  .sc-ext-phone {
+    flex: none;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    /* fully collapsed under the player until it rises up into place */
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+    overflow: hidden;
+    transform: translateY(24px);
+    transition: max-height 0.6s var(--ease-drawer), padding 0.6s var(--ease-drawer),
+      margin-top 0.6s var(--ease-drawer), transform 0.6s var(--ease-drawer),
+      opacity 0.5s var(--ease-out);
+  }
+  .sc-ext.open .sc-ext-phone {
+    max-height: 1400px;
+    padding-top: 20px;
+    padding-bottom: 22px;
+    border-width: 1px;
+    margin-top: clamp(14px, 3.5vw, 22px);
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.sc-ext-phone-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sc-ext-review-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.sc-ext-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.sc-ext-count svg {
+  width: 12px;
+  height: 12px;
+}
+
+.sc-ext-phone-face {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--ink-3);
+}
+
+.sc-ext-phone-face.post {
+  display: none;
+  color: var(--accent-strong);
+}
+
+.built .sc-ext-phone-face.pre { display: none; }
+.built .sc-ext-phone-face.post { display: inline; }
+
+/* progress bar — static and full, like the real review header */
+.sc-ext-progress {
+  flex: none;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--accent-soft);
+  overflow: hidden;
+}
+
+.sc-ext-progress i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+/* ---------- Card stack: front & back cross-fade like the app flip ---------- */
+/* Mirrors FlashcardStudyView: front fades/scales/blurs out while the back
+   fades in — front scale 1 -> 0.975, back scale 0.985 -> 1, ~6px blur bridge. */
+.sc-ext-cardstack {
+  position: relative;
+  flex: 1;
+}
+
+.sc-ext-card {
+  display: grid;
+  gap: 14px;
+  opacity: 0;
+  transform: scale(0.985);
+  filter: blur(6px);
+  transition: opacity 0.2s var(--ease-out), transform 0.22s var(--ease-out),
+    filter 0.2s var(--ease-out);
+}
+
+.built .sc-ext-card {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* card front — the word side that lands first (see 6.png) */
+.sc-ext-front {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 17px 16px 15px;
+  border-radius: 18px;
+  background: var(--surface);
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+  transition: opacity 0.2s var(--ease-out), transform 0.22s var(--ease-out),
+    filter 0.2s var(--ease-out);
+}
+
+.built .sc-ext-front {
+  opacity: 0;
+  transform: scale(0.975);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.sc-ext-front-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sc-ext-front-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--text-xs);
+  font-weight: 680;
+  color: var(--ink-2);
+}
+
+.sc-ext-front-label svg {
+  width: 13px;
+  height: 13px;
+  color: var(--ink-3);
+}
+
+.sc-ext-front-word {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sc-ext-front-jp {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-wrap: wrap;
+  font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+  font-weight: 760;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.sc-ext-front-word em {
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+
+.sc-ext-front-hint {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.sc-ext-front-hint svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+.sc-ext-ji {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--accent-border);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.sc-ext-wordrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-wrap: wrap;
+}
+
+.sc-ext-word {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  font-size: 1.5rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.sc-ext-word em {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+/* Apple TTS button — present but visibly disabled in this preview */
+.sc-ext-speak {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--chip-bg);
+  border: 1px solid var(--surface-border);
+  color: var(--ink-3);
+  opacity: 0.55;
+}
+
+.sc-ext-speak svg {
+  width: 17px;
+  height: 17px;
+}
+
+.sc-ext-mediabox {
+  background: var(--bg);
+}
+
+/* the captured line under the scene — plain sentence text with only the
+   target word picked out, matching the real flashcard caption (not the
+   tappable per-word chips used by the player's lookup overlay) */
+.sc-ext-minisub {
+  margin: 12px 0 0;
+  font-size: 0.875rem;
+  font-weight: 560;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--ink);
+}
+
+.sc-ext-minisub .plain {
+  color: var(--ink);
+}
+
+.sc-ext-minisub .hl {
+  color: var(--accent-strong);
+  font-weight: 750;
+}
+
+/* media-audio button on the scene — the one that actually plays the clip */
+.sc-ext-mediabtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(38, 48, 54, 0.72);
+  color: #fff;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.sc-ext-mediabtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.built .sc-ext-mediabtn {
+  animation: sc-play-pulse 3.2s var(--ease-in-out) 0.6s infinite;
+}
+
+/* Review Mode rating row — only appears once the answer is revealed */
+.sc-ext-ratingrow {
+  flex: none;
+  padding: 0;
+  margin-top: 2px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s var(--ease-out) 0.1s, transform 0.4s var(--ease-out) 0.1s;
+  pointer-events: none;
+}
+
+.built .sc-ext-ratingrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Step rail under the stage ---------- */
+.sc-ext-steps {
+  list-style: none;
+  margin: 22px auto 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 10px;
+}
+
+.sc-ext-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  font-weight: 640;
+  transition: color 0.35s, border-color 0.35s, background 0.35s, box-shadow 0.35s;
+}
+
+.sc-ext-steps li i {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0.5;
+  transition: opacity 0.35s, background 0.35s, border-color 0.35s;
+}
+
+.sc-ext-steps li.on {
+  color: var(--chip-text);
+  background: var(--chip-bg);
+  border-color: var(--accent-border);
+}
+
+.sc-ext-steps li.now {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.sc-ext-steps li.on i {
+  opacity: 1;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.sc-ext-steps li.on i::after {
+  content: "";
+  width: 7px;
+  height: 4px;
+  border-left: 1.8px solid var(--accent-ink);
+  border-bottom: 1.8px solid var(--accent-ink);
+  transform: rotate(-45deg) translate(0.5px, -1px);
+}
+
+/* ---------- Reduced motion: show the finished story ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .sc-ext-phone,
+  .sc-ext-card {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  /* the card is simply present next to the player, no slide/resize */
+  .sc-ext-phone {
+    margin-right: 0 !important;
+    max-height: none !important;
+    margin-top: 0 !important;
+  }
+  .sc-ext-cursor,
+  .sc-ext-autosub,
+  .sc-ext-pop,
+  .sc-ext-toast,
+  .sc-ext-ring,
+  .sc-ext-front {
+    display: none !important;
+  }
+  .sc-ext-tok {
+    background: var(--sc-ext-hi);
+    color: var(--sc-ext-hi-ink);
+    text-shadow: none;
+  }
+  .sc-ext-phone-face.pre { display: none; }
+  .sc-ext-phone-face.post { display: inline; }
+  .sc-ext-mediabtn { animation: none !important; }
+  .sc-ext-steps li {
+    color: var(--chip-text);
+    background: var(--chip-bg);
+    border-color: var(--accent-border);
+  }
+  .sc-ext-steps li i { opacity: 1; background: var(--accent); border-color: var(--accent); }
+  .sc-ext-steps li i::after {
+    content: "";
+    width: 7px;
+    height: 4px;
+    border-left: 1.8px solid var(--accent-ink);
+    border-bottom: 1.8px solid var(--accent-ink);
+    transform: rotate(-45deg) translate(0.5px, -1px);
+  }
+}
+

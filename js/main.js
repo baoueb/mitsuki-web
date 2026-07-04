@@ -591,6 +591,197 @@
       });
     }
   }
+
+  /* ---------- E. Extension capture demo ---------- */
+  /* A scripted "screen recording": subtitles fade in, a cursor taps 倒し,
+     the popup confirms it, and the scene flies into the Mitsuki card.
+     Phase classes are cumulative on #ext-stage; see style.css (.sc-ext). */
+  var extStage = document.getElementById("ext-stage");
+
+  if (extStage) {
+    var extBrowser = extStage.querySelector(".sc-ext-browser");
+    var extPlayer = document.getElementById("ext-player");
+    var extTok = document.getElementById("ext-tok");
+    var extPop = document.getElementById("ext-pop");
+    var extRing = document.getElementById("ext-ring");
+    var extCursor = document.getElementById("ext-cursor");
+    var extPhone = document.getElementById("ext-phone");
+    var extSteps = Array.prototype.slice.call(document.querySelectorAll("#ext-steps li"));
+
+    var EXT_PHASES = ["p-subs", "p-cursor", "p-hover", "p-hit", "p-save", "p-deck", "open"];
+
+    var extSetSteps = function (n) {
+      extSteps.forEach(function (li, i) {
+        li.classList.toggle("on", i < n);
+        li.classList.toggle("now", i === n - 1);
+      });
+    };
+
+    if (reduceMotion) {
+      extStage.classList.add("p-subs", "p-hit", "open");
+      extPhone.classList.add("built");
+      extSetSteps(4);
+      extSteps.forEach(function (li) {
+        li.classList.remove("now");
+      });
+    } else {
+      var extVisible = false;
+      var extTimer = null;
+      var extQueued = null;
+
+      // single-chain setTimeout that pauses while the demo is offscreen
+      var extLater = function (fn, ms) {
+        clearTimeout(extTimer);
+        extTimer = setTimeout(function () {
+          if (!extVisible) {
+            extQueued = fn;
+            return;
+          }
+          fn();
+        }, ms);
+      };
+
+      var relTo = function (parentEl, el) {
+        var p = parentEl.getBoundingClientRect();
+        var r = el.getBoundingClientRect();
+        return { left: r.left - p.left, top: r.top - p.top, width: r.width, height: r.height };
+      };
+
+      /* -- cursor: tip of the arrow lands on (x, y), browser-relative -- */
+      var extCursorSet = function (x, y) {
+        var c = extCursor.getBoundingClientRect();
+        extCursor.style.setProperty("--cx", x - c.width * 0.2 + "px");
+        extCursor.style.setProperty("--cy", y - c.height * 0.12 + "px");
+      };
+
+      var extCursorJump = function (x, y) {
+        extCursor.classList.add("jump");
+        extCursorSet(x, y);
+        void extCursor.offsetWidth; // commit the teleport before any glide
+      };
+
+      var extCursorGlide = function (x, y) {
+        extCursor.classList.remove("jump");
+        extCursorSet(x, y);
+      };
+
+      var extPlacePop = function () {
+        var r = relTo(extPlayer, extTok);
+        extPop.style.left = r.left + r.width / 2 + "px";
+        extPop.style.top = r.top + "px";
+      };
+
+      var extClickRipple = function () {
+        var r = relTo(extPlayer, extTok);
+        extRing.style.left = r.left + r.width / 2 + "px";
+        extRing.style.top = r.top + r.height / 2 + "px";
+        extRing.classList.remove("go");
+        void extRing.offsetWidth;
+        extRing.classList.add("go");
+      };
+
+      var extReset = function () {
+        EXT_PHASES.forEach(function (p) {
+          extStage.classList.remove(p);
+        });
+        extStage.classList.remove("toast-out");
+        extPhone.classList.remove("built");
+        extRing.classList.remove("go");
+        extCursor.classList.remove("show", "down");
+        extSetSteps(0);
+      };
+
+      var extRun = function () {
+        extReset();
+        var pr = relTo(extBrowser, extPlayer);
+        extCursorJump(pr.left + pr.width * 0.85, pr.top + pr.height * 0.88);
+
+        extLater(function () {
+          // 1 — the video is playing with its Japanese subtitles
+          extStage.classList.add("p-subs");
+          extSetSteps(1);
+          extLater(extStepCursor, 1700);
+        }, 500);
+      };
+
+      var extStepCursor = function () {
+        extStage.classList.add("p-cursor");
+        extCursor.classList.add("show");
+        var r = relTo(extBrowser, extTok);
+        extCursorGlide(r.left + r.width * 0.52, r.top + r.height * 0.62);
+        extLater(extStepHover, 1100);
+      };
+
+      var extStepHover = function () {
+        // 2 — the word lights up and the dictionary popup appears
+        extPlacePop();
+        extStage.classList.add("p-hover");
+        extSetSteps(2);
+        extLater(extStepClick, 1550);
+      };
+
+      var extStepClick = function () {
+        extCursor.classList.add("down");
+        extClickRipple();
+        extLater(function () {
+          extCursor.classList.remove("down");
+          extStage.classList.remove("p-hover"); // popup away…
+          extStage.classList.add("p-hit"); // …the word keeps its highlight
+          extLater(extStepCapture, 340);
+        }, 190);
+      };
+
+      var extStepCapture = function () {
+        // 3 — the word is added: a toast confirms, and the Mitsuki card slides in
+        //     from the right while the player smoothly shrinks to make room
+        extStage.classList.add("p-save"); // toast "Added 倒し"
+        extSetSteps(3);
+        extCursor.classList.remove("show");
+        extLater(function () {
+          extStage.classList.add("open"); // card slides in + player resizes
+          extLater(extStepDeck, 1650);
+        }, 260);
+      };
+
+      var extStepDeck = function () {
+        // 4 — the card front rests in the deck, ready to review
+        extStage.classList.add("p-deck");
+        extLater(function () {
+          extStage.classList.add("toast-out");
+          extLater(extStepReveal, 1050);
+        }, 1000);
+      };
+
+      var extStepReveal = function () {
+        // …tap to reveal: front cross-fades to the answer, scene included
+        extPhone.classList.add("built");
+        extSetSteps(4);
+        // hold on the answer, then close the card and loop
+        extLater(extStepClose, 3400);
+      };
+
+      var extStepClose = function () {
+        // the card slides back out and the player expands, then we restart
+        extStage.classList.remove("open");
+        extPhone.classList.remove("built");
+        extLater(extRun, 820);
+      };
+
+      new IntersectionObserver(
+        function (entries) {
+          extVisible = entries[0].isIntersecting;
+          if (extVisible && extQueued) {
+            var fn = extQueued;
+            extQueued = null;
+            fn();
+          }
+        },
+        { threshold: 0.3 }
+      ).observe(extStage);
+
+      extLater(extRun, 500);
+    }
+  }
 })();
 
 /* ============================================================
