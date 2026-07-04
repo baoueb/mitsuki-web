@@ -1,10 +1,10 @@
-// mitsuki-web — Cloudflare Pages advanced-mode Worker.
+// mitsuki-web — Cloudflare Worker (Static Assets) entrypoint.
 //
-// Pages runs this for every request. Static files are served straight from the
-// ASSETS binding (unchanged behaviour). The only dynamic route is /download/* :
-// it resolves the latest GitHub release DMG, 302-redirects there, and fires an
-// anonymous, server-side click event to Supabase. No cookie, no client-side
-// script — consistent with the site's "no analytics SDKs / no tracking" policy.
+// Static files are served straight from the ASSETS binding (unchanged
+// behaviour). The only dynamic route is /download/* : it resolves the latest
+// GitHub release DMG, 302-redirects there, and fires an anonymous, server-side
+// click event to Supabase. No cookie, no client-side script — consistent with
+// the site's "no analytics SDKs / no tracking" privacy policy.
 
 const GITHUB_LATEST = "https://api.github.com/repos/baoueb/Mitsuki/releases/latest";
 const RELEASES_PAGE = "https://github.com/baoueb/Mitsuki/releases/latest";
@@ -16,7 +16,6 @@ export default {
     if (url.pathname === "/download" || url.pathname.startsWith("/download/")) {
       return handleDownload(request, url, ctx);
     }
-    // Everything else is a static asset (Pages provides the ASSETS binding).
     return env.ASSETS.fetch(request);
   },
 };

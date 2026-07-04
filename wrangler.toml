@@ -1,0 +1,8 @@
+name = "mitsuki-web"
+account_id = "841e98b8006ff9ddcffbd8624e39ec08"
+compatibility_date = "2026-06-22"
+main = "worker.js"
+
+[assets]
+directory = "."
+binding = "ASSETS"
