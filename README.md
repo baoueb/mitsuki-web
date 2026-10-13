@@ -24,4 +24,5 @@ Everything else is an extra.
 Production site:
 
 ```text
-https://mitsuki.$UNKNOWN$
+https://mitsukiapp.me
+```
